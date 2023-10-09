@@ -65,7 +65,22 @@ class ProductsController < ApplicationController
     end
   end
 
-
+  def remove_from_cart
+    product_id = params[:product_id].to_i
+    orderable = @cart.orderables.find_by(product_id: product_id)
+  
+    if orderable
+      orderable.destroy
+  
+      respond_to do |format|
+        format.html { redirect_to cart_products_products_path }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.remove("cart_product_#{product_id}")
+        end
+      end
+    end
+  end
+  
   private
 
   def set_cart

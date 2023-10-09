@@ -25,7 +25,7 @@ Rails.application.routes.draw do
       get :cart_products
     end
     post :add_to_cart, on: :member
-
+    delete 'remove_from_cart'
   end
 
   post 'products/add_to_cart'

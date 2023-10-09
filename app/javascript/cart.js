@@ -2,7 +2,7 @@ document.addEventListener('turbo:load', function () {
   function updateCartInNavbar() {
     const cartCountElement = document.getElementById('cart-count');
 
-    // Korišćenje localStorage umesto sessionStorage
+
     const cartProducts = JSON.parse(localStorage.getItem('cart-products')) || [];
 
     if (cartCountElement) {
@@ -24,7 +24,6 @@ document.addEventListener('turbo:load', function () {
         carts.push({ id: productId });
         button.classList.add('active');
 
-        // Čuvanje podataka u localStorage
         localStorage.setItem('cart-products', JSON.stringify(carts));
 
         console.log('Podaci o korpi nakon dodavanja:', carts);
@@ -35,7 +34,6 @@ document.addEventListener('turbo:load', function () {
           carts.splice(index, 1);
           button.classList.remove('active');
 
-          // Čuvanje podataka u localStorage
           localStorage.setItem('cart-products', JSON.stringify(carts));
 
           console.log('Podaci o korpi nakon uklanjanja:', carts);
