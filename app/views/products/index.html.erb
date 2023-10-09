@@ -1,0 +1,8 @@
+<%= turbo_stream_from "products" %>
+
+  <%= turbo_frame_tag "products" do %>
+    <div class="flex justify-around mt-24">
+    <%= render @products %>
+    </div>
+<% end %>
+

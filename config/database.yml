@@ -5,14 +5,14 @@ default: &default
 
 development:
   <<: *default
-  database: push_development
+  database: payment_development
 
 test:
   <<: *default
-  database: push_test<%= ENV['TEST_ENV_NUMBER'] %>
+  database: payment_test<%= ENV['TEST_ENV_NUMBER'] %>
 
 production:
   <<: *default
-  database: push_production
-  username: push
-  password: <%= ENV["PUSH_DATABASE_PASSWORD"] %>
+  database: payment_production
+  username: payment
+  password: <%= ENV["PAYMENT_DATABASE_PASSWORD"] %>
