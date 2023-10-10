@@ -9,6 +9,7 @@ class ProductsController < ApplicationController
   def cart_products
     @products_ids = @cart.product_ids
     @cart_products = Product.where(id: @products_ids)
+    @cart_empty = @cart_products.empty?
   end
 
   def create_product_ids
@@ -25,13 +26,7 @@ class ProductsController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to cart_products_products_path }
-      format.turbo_stream do
-        render turbo_stream: turbo_stream.replace(
-          "cart_products",
-          partial: "products/cart_products",
-          locals: { cart_products: @cart_products },
-        )
-      end
+      format.turbo_stream
     end
   end
 
@@ -59,7 +54,12 @@ class ProductsController < ApplicationController
           render turbo_stream: [turbo_stream.replace("quantity_#{@product.id}",
                                                      partial: "products/cart_product_quantity",
                                                      locals: { product: @product }),
-                                turbo_stream.replace(@product)]
+                                turbo_stream.replace(@product),
+                                turbo_stream.replace("price_#{@product.id}",
+                                                      partial: "products/total_product_price",
+                                                      locals: { product: @product }),
+                                turbo_stream.replace("cart_total", partial: "products/cart_total")]
+                                                      
         end
       end
     end
@@ -72,15 +72,25 @@ class ProductsController < ApplicationController
     if orderable
       orderable.destroy
   
+      @products_ids = @cart.product_ids
+      @cart_products = Product.where(id: @products_ids)
+      @cart_empty = @cart_products.empty?
+  
       respond_to do |format|
         format.html { redirect_to cart_products_products_path }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.remove("cart_product_#{product_id}")
+          turbo_stream_actions = [turbo_stream.remove("cart_product_#{product_id}"),
+                                  turbo_stream.replace("cart_total", partial: "products/cart_total")]
+          if @cart_empty
+            turbo_stream_actions << turbo_stream.replace("cart_products", partial: "products/empty_state")
+          end
+          render turbo_stream: turbo_stream_actions
         end
       end
     end
   end
   
+
   private
 
   def set_cart

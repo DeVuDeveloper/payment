@@ -1,14 +1,22 @@
+<%= turbo_stream_from "products" %>
 <%= turbo_frame_tag "cart_products" do %>
-
   <div class="p-4 max-w-xl">
     <div class="bg-white shadow-lg rounded-lg overflow-hidden">
-    <% @cart_products.each do |product| %>
-      <%= render 'cart_products', product: product %>
-    <% end %>
-    <button class="block w-full mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
-      Checkout
-    </button>
+      <% if @cart_empty %>
+        <%= render "products/empty_state" %>
+      <% else %>
+        <% @cart_products.each do |product| %>
+          <%= render 'cart_products', product: product %>
+        <% end %>
+          
+          <%= turbo_frame_tag "cart_total" do %>
+          <%= render 'cart_total' %>
+        <% end %>
+        <button id="checkout_button" class="block w-full mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded">
+          Checkout
+        </button>
+      <% end %>
+    </div>
   </div>
-</div>
-
 <% end %>
+

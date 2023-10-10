@@ -4,13 +4,12 @@
       <%= image_tag product.image, class: "w-96 object-contain rounded-lg mr-4" %>
       <div class="flex-1">
         <%= button_to(
-  product_remove_from_cart_path(product),
-  method: :delete,
-  remote: true,
-  class: "text-gray-600 hover:text-red-500 remove-from-cart",
-  data: { product_id: product.id },
-
-) do %>
+          product_remove_from_cart_path(product),
+          method: :delete,
+          remote: true,
+          class: "text-gray-600 hover:text-red-500 remove-from-cart",
+          data: { product_id: product.id }
+        ) do %>
           <i class="fas fa-trash"></i>
         <% end %>
         <div class="flex items-center">
@@ -29,8 +28,10 @@
             </svg>
           <% end %>
         </div>
-        <h2 class="text-lg font-bold"><%= product.name %></h2>
-        <span id="price_<%= product.id %>" class="text-gray-600">$<%= product.price %></span>
+        <h2 class="text-lg font-bold text-gray-700"><%= product.name %></h2>
+        <%= turbo_frame_tag "price_#{product.id}" do %>
+          <%= render 'total_product_price', product: product %>
+        <% end %>
       </div>
     </div>
   </div>

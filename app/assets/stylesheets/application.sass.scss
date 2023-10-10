@@ -1,41 +1,56 @@
 .flash__message {
-    font-size: 0.875rem;
-    animation: appear-then-fade 4s both;
-    border-radius: 999px;
-    margin-top: -10px;
-    margin-right: 100px;
-  }
-  
-  .flash__message-notice {
-    color: hsl(120, 96%, 53%);
-  }
-  
-  .flash__message-alert {
-    color: hsl(0, 96%, 53%);
-  }
-  
-  
-  @keyframes appear-then-fade {
-    0%, 100% {
-      opacity:0
-    }
-    5%, 60% {
-      opacity:1
-    }
-  }
+  font-size: 0.875rem;
+  animation: appear-then-fade 4s both;
+  border-radius: 999px;
+  margin-top: -10px;
+  margin-right: 100px;
+}
 
-  .password-strength-meter {
-    width: 100%;
-    margin-top: 10px;
+.flash__message-notice {
+  color: hsl(120, 96%, 53%);
+}
+
+.flash__message-alert {
+  color: hsl(0, 96%, 53%);
+}
+
+@keyframes appear-then-fade {
+  0%,
+  100% {
+    opacity: 0;
   }
-  
-  #password-strength {
-    width: 100%;
+  5%,
+  60% {
+    opacity: 1;
   }
-  
-  #password-strength-label {
-    display: block;
-    margin-top: 5px;
-    text-align: center;
+}
+
+.password-strength-meter {
+  width: 100%;
+  margin-top: 10px;
+}
+
+#password-strength {
+  width: 100%;
+}
+
+#password-strength-label {
+  display: block;
+  margin-top: 5px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.empty-state {
+  padding: var(--space-m);
+  border: var(--border);
+  border-style: dashed;
+  text-align: center;
+
+  &__text {
+    font-size: var(--font-size-l);
+    color: var(--color-text-header);
+    margin-bottom: var(--space-l);
     font-weight: bold;
   }
+}
