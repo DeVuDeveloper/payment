@@ -15,7 +15,9 @@ gem "jbuilder"
 gem "redis", "~> 4.0"
 gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
+gem 'braintree'
 gem 'devise'
+gem 'dotenv'
 gem "view_component"
 gem 'tailwindcss-rails'
 gem 'simple_form'

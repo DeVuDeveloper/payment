@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       post "subscribe", on: :collection
     end
     resources :products
+    resources :payments
   end
 
   resources :products do
@@ -27,6 +28,8 @@ Rails.application.routes.draw do
     post :add_to_cart, on: :member
     delete 'remove_from_cart'
   end
+
+  resources :charges
 
   post 'products/add_to_cart'
   post 'products/remove_from_cart'

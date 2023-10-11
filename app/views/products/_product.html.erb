@@ -3,7 +3,7 @@
     <%= image_tag product.image, class: "rounded-t-lg w-96" %>
     <div class="p-5">
       <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><%= product.name %></h5>
-      <small>$<%= product.price %></small>
+      <small><%= number_to_currency(product.price) %></small>
       <p class="mb-3 font-normal text-gray-700 dark:text-gray-400"><%= product.description %></p>
       <div class="bg-indigo-500 py-2 text-white text-center">
         <button id="cart-button" class="cart-button cart-send" data-product-id="<%= product.id %>">Add to cart</button>
