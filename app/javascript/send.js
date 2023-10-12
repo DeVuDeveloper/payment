@@ -5,13 +5,10 @@ document.addEventListener('turbo:load', function () {
     cartButton.addEventListener('click', function (event) {
       event.preventDefault();
 
-      console.log('Klik na ikonu korpe detektovan.');
-
       setTimeout(function () {
         const cartData = JSON.parse(localStorage.getItem('cart-products')) || [];
-        console.log('Podaci iz localStorage:', cartData);
-
-        fetch('/products/create_product_ids', {
+     
+      fetch('/products/create_product_ids', {
           method: 'POST',
           headers: {
             "Content-Type": "application/json",
@@ -22,15 +19,15 @@ document.addEventListener('turbo:load', function () {
 
         }).then(response => {
           if (response.ok) {
-            console.log('Podaci o korpi su uspešno poslati na server.');
+            console.log('Data about cart successfully sent to server');
           } else {
-            console.error('Greška prilikom slanja podataka na server.');
+            console.error('Error during sending data to server.');
           }
         }).catch(error => {
-          console.error('Greška prilikom slanja podataka na server:', error);
+          console.error('Error during sending data to server:', error);
         });
 
-      }, 1000); // 1000 ms (1 sekunda) kašnjenja prije nego što se preuzmu podaci iz localStorage i šalju na server
+      }, 1000);
     });
   });
 });

@@ -4,7 +4,6 @@ document.addEventListener("turbo:load", function () {
   cartButtons.forEach((button) => {
     button.addEventListener("click", function () {
       const productId = button.dataset.productId;
-      console.log("productId:", productId);
 
       const cartCountElement = document.getElementById("cart-count");
       let cartCount = parseInt(cartCountElement.textContent);

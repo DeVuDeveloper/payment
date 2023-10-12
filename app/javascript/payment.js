@@ -1,7 +1,10 @@
 document.addEventListener('turbo:load', function() {
-    const form = document.querySelector('#payment-form');
-    const client_token = document.querySelector('[name="client_token"]').value;
+  const form = document.querySelector('#payment-form');
+  const clientTokenInput = document.querySelector('[name="client_token"]');
   
+  if (clientTokenInput) {
+    const client_token = clientTokenInput.value;
+
     braintree.dropin.create({
       authorization: client_token,
       container: '#bt-dropin',
@@ -23,5 +26,5 @@ document.addEventListener('turbo:load', function() {
         });
       });
     });
-  
-  });
+  }
+});

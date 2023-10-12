@@ -10,11 +10,6 @@ class ChargesController < ApplicationController
     @charge = Charge.new
   end
 
-  def show
-    @transaction = gateway.transaction.find(params[:id])
-    @result = _create_result_hash(@transaction)
-  end
-
   def create
     amount = params["amount"]
     nonce = params["payment_method_nonce"]
@@ -35,25 +30,5 @@ class ChargesController < ApplicationController
     end
 
     redirect_to new_charge_path
-  end
-
-  def _create_result_hash(transaction)
-    status = transaction.status
-
-    if TRANSACTION_SUCCESS_STATUSES.include? status
-      result_hash = {
-        header: "Sweet Success!",
-        icon: "success",
-        message: "Your test transaction has been successfully processed. See the Braintree API response and try again.",
-      }
-    else
-      result_hash = {
-        header: "Transaction Failed",
-        icon: "fail",
-        message: "Your test transaction has a status of #{status}. See the Braintree API response and try again.",
-      }
-    end
-
-    result_hash
   end
 end
