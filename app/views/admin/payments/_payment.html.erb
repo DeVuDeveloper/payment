@@ -1,0 +1,12 @@
+<%= turbo_frame_tag 'transactions' do %>
+    <% transactions.each do |transaction| %>
+  <li class="bg-gray-800 border-b border-gray-200 text-gray-400 p-3 flex">
+    <span class="w-full sm:w-1/6 pr-4"> <%= transaction.created_at.strftime("%Y-%m-%d %H:%M:%S") %></span>
+    <span class="w-full sm:w-1/6 pr-4"> <%= transaction.id %></span></span>
+    <span class="w-full sm:w-1/6  pl-8"> <%= transaction.type %></span>
+    <span class="w-full sm:w-1/6 pl-8"> <%= transaction.credit_card_details.last_4 %></span>
+    <span class="w-full sm:w-1/6 pl-8"> <%= transaction.amount %></span>
+    <span class="w-full sm:w-1/6 pr-4"> <%= transaction.status %></span>
+     <% end %>
+</li>
+<% end %>

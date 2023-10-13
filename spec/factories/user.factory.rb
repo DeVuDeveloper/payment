@@ -1,6 +1,8 @@
 FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
-    password { Faker::Internet.password(min_length: Devise.password_length.first) }
+    password { Faker::Internet.password }
+    role { "admin" }
+    verified { true }
   end
 end

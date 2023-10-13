@@ -1,0 +1,21 @@
+<%= turbo_stream_from "products" %>
+<%= turbo_frame_tag "cart_products" do %>
+  <div class="p-4">
+    <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+      <% if @cart_empty %>
+        <%= render "products/empty_state" %>
+      <% else %>
+        <div class="flex justify-around">
+          <% @cart_products.each do |product| %>
+            <%= render 'cart_products', product: product %>
+          <% end %>
+        </div>
+        <span class="fixed bottom-24">
+          <%= turbo_frame_tag "cart_total", class:"fixed bottom-24" do %>
+            <%= render 'cart_total' %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+  <%= link_to "Checkout", new_charge_path, id:"checkout_button", class: "fixed bottom-4 text-center block w-full mt-4 bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded" %>

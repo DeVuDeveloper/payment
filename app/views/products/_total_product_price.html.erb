@@ -1,0 +1,1 @@
+<span id=<%="price_#{product.id}"%> class="text-white"> <strong class="text-green-500">Total: </strong><%= number_to_currency(product.price * product.orderables.first.quantity) %></span>

@@ -8,6 +8,8 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
+  has_many :charges
+
   after_create_commit lambda {
                         broadcast_prepend_to "users", partial: "admin/users/user", locals: { user: self },
                                                       target: "users"

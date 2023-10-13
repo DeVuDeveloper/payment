@@ -7,6 +7,9 @@ import { application } from "./application"
 import PasswordController from "./password_controller"
 application.register("password", PasswordController)
 
+import PaymentController from "./payment_controller"
+application.register("payment", PaymentController)
+
 import PushController from "./push_controller"
 application.register("push", PushController)
 
