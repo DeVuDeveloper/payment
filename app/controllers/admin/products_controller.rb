@@ -1,4 +1,5 @@
-class Admin::ProductsController < ApplicationController
+module Admin
+  class ProductsController < ApplicationController
     before_action :authenticate_user!
     before_action :authorize_admin!
     before_action :set_product, only: %i[edit update destroy]
@@ -10,8 +11,7 @@ class Admin::ProductsController < ApplicationController
       @page_title = "Products"
     end
 
-    def show
-    end
+    def show; end
 
     def new
       @product = Product.new
@@ -30,8 +30,7 @@ class Admin::ProductsController < ApplicationController
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       if @product.update(product_params)
@@ -57,14 +56,15 @@ class Admin::ProductsController < ApplicationController
     def set_product
       @product = Product.find(params[:id])
     end
-  
+
     def authorize_admin!
       return if current_user&.admin?
-  
+
       redirect_to root_path, alert: "You are not authorized to access this page."
     end
-  
+
     def product_params
       params.require(:product).permit(:name, :price, :description, :image)
     end
   end
+end

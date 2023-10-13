@@ -7,7 +7,6 @@ RSpec.describe VerifyController, type: :controller do
 
   describe 'POST #create' do
     it 'sends a verification code to the user email' do
-      create(:user)
       post :create
       expect(response).to redirect_to verify_url
       expect(flash[:notice]).to eq("Verification code has been sent to email address.")

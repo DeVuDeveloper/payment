@@ -16,10 +16,13 @@ Layout/SpaceInsidePercentLiteralDelimiters:
 
 
 Metrics/AbcSize:
-  Max: 33
+  Max: 54
+
+Metrics/ClassLength:
+  Max: 130
 
 Metrics/BlockLength:
-  Max: 76
+  Max: 98
 
 
 Metrics/CyclomaticComplexity:
@@ -27,7 +30,7 @@ Metrics/CyclomaticComplexity:
 
 
 Metrics/MethodLength:
-  Max: 13
+  Max: 37
 
 
 Metrics/PerceivedComplexity:

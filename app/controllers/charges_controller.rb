@@ -1,34 +1,50 @@
 class ChargesController < ApplicationController
   before_action :authenticate_user!
   protect_from_forgery with: :null_session
+  before_action :set_cart
+
   include BraintreeGatewayConcern
 
   def new
-    @client_token = @gateway.client_token.generate
-    @cart = Cart.first
+    @client_token = gateway.client_token.dig("data", "createClientToken", "clientToken")
+    return unless @cart
+
     @cart_products = @cart.orderables.includes(:product).map(&:product)
-    @charge = Charge.new
   end
 
   def create
     amount = params["amount"]
     nonce = params["payment_method_nonce"]
 
-    result = @gateway.transaction.sale(
-      amount: amount,
-      payment_method_nonce: nonce,
-      options: {
-        submit_for_settlement: true,
-      },
-    )
+    begin
+      result = gateway.transaction(nonce, amount)
+      id = result.dig("data", "chargePaymentMethod", "transaction", "id")
 
-    if result.success? || result.transaction
+      raise BraintreeGateway::GraphQLError, result unless id
+
+      redirect_to new_charge_path
       flash[:notice] = "Transaction was successful!"
-    else
-      error_messages = result.errors.map { |error| "Error: #{error.code}: #{error.message}" }
-      flash[:alert] = error_messages
+    rescue BraintreeGateway::GraphQLError => e
+      _flash_errors(e)
+      redirect_to new_charge_path
     end
+  end
 
-    redirect_to new_charge_path
+  private
+
+  def set_cart
+    @cart = Cart.last
+  end
+
+  def gateway
+    @gateway ||= BraintreeGateway.new(HTTParty)
+  end
+
+  def _flash_errors(error)
+    flash[:error] = if !error.messages.nil? && !error.messages.empty?
+                      error.messages
+                    else
+                      ["Error: Something unexpected went wrong! Try again."]
+                    end
   end
 end

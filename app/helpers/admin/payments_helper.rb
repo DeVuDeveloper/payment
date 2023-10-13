@@ -1,2 +1,4 @@
-module Admin::PaymentsHelper
+module Admin
+  module PaymentsHelper
+  end
 end

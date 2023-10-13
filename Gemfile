@@ -18,6 +18,7 @@ gem "bootsnap", require: false
 gem 'braintree'
 gem 'devise'
 gem 'dotenv'
+gem 'httparty'
 gem "view_component"
 gem 'tailwindcss-rails'
 gem 'simple_form'

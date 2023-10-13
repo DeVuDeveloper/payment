@@ -2,11 +2,11 @@ Rails.application.routes.draw do
   get "products/index"
   get "products/show"
   devise_for :users, path: "account", path_names: {
-                       sign_in: "login",
-                       sign_out: "logout",
-                       password: "reset_password",
-                       registration: "register",
-                     }
+    sign_in: "login",
+    sign_out: "logout",
+    password: "reset_password",
+    registration: "register"
+  }
 
   root "products#index"
 
@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   post 'products/add_to_cart'
   post 'products/remove_from_cart'
-  
+
   get "/verify" => "verify#edit", :as => "verify"
   get "/verify" => "verify#new", :as => "new_verify"
   put "/verify" => "verify#update", :as => "update_verify"

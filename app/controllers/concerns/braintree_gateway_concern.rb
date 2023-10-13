@@ -8,11 +8,11 @@ module BraintreeGatewayConcern
     Braintree::Transaction::Status::SettlementConfirmed,
     Braintree::Transaction::Status::SettlementPending,
     Braintree::Transaction::Status::Settling,
-    Braintree::Transaction::Status::SubmittedForSettlement,
-  ]
+    Braintree::Transaction::Status::SubmittedForSettlement
+  ].freeze
 
   included do
-    before_action :set_gateway, only: %i[new create show index]
+    before_action :set_gateway, only: %i[index]
   end
 
   private
@@ -20,10 +20,10 @@ module BraintreeGatewayConcern
   def set_gateway
     env = ENV["BRAINTREE_ENV"]
     @gateway ||= Braintree::Gateway.new(
-      environment: env && env.to_sym,
+      environment: env&.to_sym,
       merchant_id: ENV["BRAINTREE_MERCHANT_ID"],
       public_key: ENV["BRAINTREE_PUBLIC_KEY"],
-      private_key: ENV["BRAINTREE_PRIVATE_KEY"],
+      private_key: ENV["BRAINTREE_PRIVATE_KEY"]
     )
   end
 end
