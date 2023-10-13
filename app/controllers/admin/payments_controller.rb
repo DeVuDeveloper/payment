@@ -8,7 +8,7 @@ module Admin
     include BraintreeGatewayConcern
 
     def index
-      @transactions = @gateway.transaction.search do |search|
+      @transactions = @set_gateway.transaction.search do |search|
         search.status.in(TRANSACTION_SUCCESS_STATUSES)
       end
 

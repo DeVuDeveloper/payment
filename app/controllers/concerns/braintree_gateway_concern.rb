@@ -19,7 +19,7 @@ module BraintreeGatewayConcern
 
   def set_gateway
     env = ENV["BRAINTREE_ENV"]
-    @gateway ||= Braintree::Gateway.new(
+    @set_gateway ||= Braintree::Gateway.new(
       environment: env&.to_sym,
       merchant_id: ENV["BRAINTREE_MERCHANT_ID"],
       public_key: ENV["BRAINTREE_PUBLIC_KEY"],
